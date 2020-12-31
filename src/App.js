@@ -129,7 +129,7 @@ class App extends Component {
   openEditMode = (id) => {
     const listValue = this.state.list.filter(item => item.id === id);
     const valueToEdit = listValue[0] && listValue[0].value;
-    console.log('valueToEdit',valueToEdit)
+    console.log('valueToEdit',valueToEdit);
     this.setState({
       editMode: true,
       valueToEdit,
