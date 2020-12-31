@@ -13,7 +13,9 @@ class App extends Component {
       toDoShow:'all',
       toggleAllComplete:true,
       isInEditMode:false,
-      colorLater:false
+      colorLater:false,
+      editMode: false,
+      valueToEdit: '',
     }
 
     this.refs = React.createRef();
@@ -124,6 +126,16 @@ class App extends Component {
     
   }
 
+  openEditMode = (id) => {
+    const listValue = this.state.list.filter(item => item.id === id);
+    const valueToEdit = listValue[0] && listValue[0].value;
+    console.log('valueToEdit',valueToEdit)
+    this.setState({
+      editMode: true,
+      valueToEdit,
+    });
+  }
+
   componentDidMount() {
     this.refs.mainInput.focus()
   }
@@ -193,11 +205,23 @@ class App extends Component {
                     () => this.toggleComplete(item.id)}>Done</button>
                 <button onClick={
                   ()=> this.todoLater(item.id)}>Do Later</button>
+                <button onClick={
+                  ()=> this.openEditMode(item.id)}>Edit Todo</button>
               </div>
               })}
             </ul>
           </div>
-
+          <div> Editing Todo
+            {
+                    this.state.editMode &&
+                    <input
+                      type="text"
+                      placeholder='Edit Task...'
+                      value={this.state.valueToEdit}
+                      onChange={e => this.setState({valueToEdit: e.target.value})}
+                    />
+                  }
+          </div>
           <div>Todos left: {this.state.list.filter(item=> !item.complete).length}</div>
           <div>
             <button onClick={()=> this.updateToShow('all')}>All</button>
