@@ -34,7 +34,6 @@ class App extends Component {
       complete: complete,
       isInEditMode: isInEditMode,
       colorLater,
-      valueToEdit: newItem
     }
     const newList = [...list, item]
     this.setState({
@@ -82,7 +81,7 @@ class App extends Component {
                 ...item,
                 isInEditMode: !item.isInEditMode,
                 value: this.state.valueToEdit,
-                valueToEdit:'',
+
               };
           }
         } else { return item;
