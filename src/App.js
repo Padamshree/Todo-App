@@ -80,7 +80,6 @@ class App extends Component {
                 ...item,
                 isInEditMode: !item.isInEditMode,
                 value: this.state.valueToEdit,
-
               };
           }
         } else { return item;
