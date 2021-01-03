@@ -14,9 +14,7 @@ class App extends Component {
       toggleAllComplete:true,
       isInEditMode:false,
       colorLater:false,
-      valueToEdit:'',
-      idToEdit:'',
-      notInEditMode:true
+      valueToEdit:''
     }
 
     this.refs = React.createRef();
@@ -36,6 +34,7 @@ class App extends Component {
       complete: complete,
       isInEditMode: isInEditMode,
       colorLater,
+      valueToEdit: newItem
     }
     const newList = [...list, item]
     this.setState({
@@ -82,7 +81,7 @@ class App extends Component {
               return {
                 ...item,
                 isInEditMode: !item.isInEditMode,
-                value: this.state.newItem,
+                value: this.state.valueToEdit,
                 valueToEdit:'',
               };
           }
@@ -101,8 +100,8 @@ class App extends Component {
                     type="text" 
                     defaultValue={item.value}
                     ref = {() => this.input = item.valueToEdit}
-                    onChange = {this.handleChange}
-                    // onChange = {e=> this.setState({valueToEdit: e.target.value})}
+                    // onChange = {this.handleChange}
+                    onChange = {e=> this.setState({valueToEdit: e.target.value})}
                     /> 
               </div>            
               <button onClick={
