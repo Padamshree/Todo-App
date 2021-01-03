@@ -21,12 +21,12 @@ class App extends Component {
   }
 
   handleChange = e => {
-    this.setState({newItem: e.target.value})
+    this.setState({newItem: e.target.value});
   }
 
   addItem = () => {
     const { newItem, idCounter, list, complete, 
-      isInEditMode, colorLater } = this.state
+      isInEditMode, colorLater } = this.state;
 
     const item = {
       id: idCounter,
@@ -35,25 +35,24 @@ class App extends Component {
       isInEditMode: isInEditMode,
       colorLater,
     }
-    const newList = [...list, item]
+    const newList = [...list, item];
     this.setState({
       idCounter:  1+Math.random(),
       list: newList,
-      newItem:''
-    })
-  
+      newItem:'',
+    });
   }
 
   itemDel = id => {
-    const { list } = this.state
-    const updList = list.filter(item => item.id !== id) 
+    const { list } = this.state;
+    const updList = list.filter(item => item.id !== id);
     this.setState({
-      list: updList
-    })
+      list: updList,
+    });
   }
 
   crossLine = e => {
-    e.target.classList.toggle("crossed-line") 
+    e.target.classList.toggle("crossed-line");
   }
 
   changeStatus = (id, buttonCode) => {
@@ -61,22 +60,22 @@ class App extends Component {
       list: this.state.list.map(item => {
         if (item.id === id) {
           switch (buttonCode) {
-            case '1': //Toggling Done/Complete
+            case 'Done': //Toggling Done/Complete
               return {
                 ...item,
                 complete: !item.complete,
               };
-            case '2': //Toggling ToDo Later
+            case 'Todo Later': //Toggling ToDo Later
               return {
                 ...item,
                 colorLater: !item.colorLater,
               };
-            case '3': // Toggling No Edit (X Button)
+            case 'Edit Mode': // Toggling No Edit (X Button)
               return {
                 ...item,
                 isInEditMode: !item.isInEditMode,
               };
-            case '4': // Saving Value
+            case 'Save': // Saving Value
               return {
                 ...item,
                 isInEditMode: !item.isInEditMode,
@@ -98,15 +97,15 @@ class App extends Component {
                     <input 
                     type="text" 
                     defaultValue={item.value}
-                    ref = {() => this.input = item.valueToEdit}
+                    // ref = {() => this.input = item.valueToEdit}
                     // onChange = {this.handleChange}
                     onChange = {e=> this.setState({valueToEdit: e.target.value})}
                     /> 
               </div>            
               <button onClick={
-                () => this.changeStatus(item.id, '3')}> X </button>
+                () => this.changeStatus(item.id, 'Edit Mode')}> X </button>
               <button onClick={
-                () => this.changeStatus(item.id, '4')}>Save</button>
+                () => this.changeStatus(item.id, 'Save')}>Save</button>
             </div>
   }
 
@@ -117,23 +116,21 @@ class App extends Component {
                     textDecoration: item.complete ? 'line-through': '',
                     color: item.colorLater ? '#FF0000':'',
                         }}
-                  onDoubleClick={()=>this.changeStatus(item.id, '3')}>
+                  onDoubleClick={()=>this.changeStatus(item.id, 'Edit Mode')}>
                       {item.value}     
               </div>
               <button onClick={
                 () => this.itemDel(item.id)}> Remove </button>
               <button onClick={
-                  () => this.changeStatus(item.id, '1')}>Done</button>
+                  () => this.changeStatus(item.id, 'Done')}>Done</button>
               <button onClick={
-                ()=> this.changeStatus(item.id, '2')}>Do Later</button>
+                ()=> this.changeStatus(item.id, 'Todo Later')}>Do Later</button>
             </div> 
 
   }
 
   updateToShow = s => {
-    this.setState({
-      toDoShow: s
-    })
+    this.setState({toDoShow: s});
   }
 
   render() {
