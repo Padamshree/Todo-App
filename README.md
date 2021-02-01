@@ -1,2 +1,2 @@
 # Todo-App
-Clickbait project!!!
+Simple Todo App Using React.
